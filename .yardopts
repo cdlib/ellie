@@ -1,0 +1,6 @@
+--readme README.md
+--title 'Zephir Services Documentation'
+--plugin yard-sinatra
+--charset utf-8
+--markup markdown
+'*.rb' - '*.md'
