@@ -1,0 +1,32 @@
+css:
+  .odd {background-color: #eee}
+  li {padding: 0pt}
+  ul.line {padding: 0.25em 0px 0px 0px; margin: 0em; height: auto;}
+  ul.line li, ul.subs, ul.subs li, ul.kv, ul.kv li   { display: inline; font-family: courier;} 
+  li.ind { margin-right: 0.75em; margin-left: 0.75em; font-family: courier;}
+  ul.kv {padding-left: 0.2em;}
+  ul.kv li.code {color: red; margin-left: 0.5em; } 
+  ul.kv li.code:before { content: "\2021"; display: inline-block;}
+
+div
+  - eo = neweo
+  ul class=["line", eo.next]
+    li.tag LDR
+    li.ind = "  "
+    li.value = record.leader.gsub(/\s/, ApplicationHelper::SPACECHAR)
+    
+  - for field in record
+    - if MARC::ControlField.control_tag?(field.tag)
+      ul class=["line", eo.next]
+        li.tag = field.tag
+        li.ind = "  "
+        li.value = field.value.gsub(/\s/, ApplicationHelper::SPACECHAR)   
+    - else
+      ul class=["line", eo.next]
+        li.tag = field.tag
+        li.ind = "#{field.indicator1}#{field.indicator2}".gsub(/\s/, ApplicationHelper::SPACECHAR)
+        li.subs
+          - for sf in field
+            ul.kv
+              li.code = sf.code
+              li.value = sf.value

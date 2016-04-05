@@ -1,0 +1,71 @@
+<span style="font-size: 20px; font-weight: bold">Cluster Record (<%= @cluster.id -%>)</span>
+<h3>Catalog View</h3>
+<table class="details">
+</tr>
+<tr>
+	<th scope="row">
+		Title
+		</th>
+	<td>
+		<%= @cluster.catalog_record.titles.join(' | ') %>
+	</td>
+</tr>
+	<tr>
+		<th scope="row">
+			URLs
+			</th>
+		<td>
+			<a href="<%= @cluster.catalog_record.resources[:catalog] %>" target="_blank">html</a>,
+			<a href="<%= @cluster.catalog_record.resources[:catalog] %>.marc" target="_blank">marc</a>,
+			<a href="<%= @cluster.catalog_record.resources[:catalog] %>.json" target="_blank">json</a>,
+			<a href="<%= @cluster.catalog_record.resources[:catalog] %>.xml" target="_blank">xml</a>
+		</td>
+	<tr>
+		<th scope="row">
+			OCLC
+	    </th>
+		<td>
+			<% @cluster.catalog_record.oclcs.each do |oclc| %><a href="http://worldcat.org/oclc/<%= oclc %>"><%= oclc -%></a> <% end %>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">
+			ISBN
+	    </th>
+		<td>
+			<% @cluster.catalog_record.isbns.each do |isbn| %><%= isbn -%> <% end %>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">
+			ISSN
+	    </th>
+		<td>
+			<% @cluster.catalog_record.issns.each do |issn| %><%= issn -%> <% end %>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">
+			LCCN
+	    </th>
+		<td>
+			<% @cluster.catalog_record.lccns.each do |issn| %><%= lccns -%> <% end %>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">
+			Holdings (<%= @cluster.catalog_record.holdings.size %>)
+	    </th>
+		<td>
+			<% @cluster.catalog_record.holdings.each do |holding| %>
+			<% puts holding.inspect %>
+			   <a href="http://babel.hathitrust.org/cgi/pt?id=<%= holding.fields[:htid]%>"><%= "#{holding.fields[:htid]} - #{holding.fields[:enumcron]}" -%></a>
+				 <% if holding.fields[:htid] == @cluster.catalog_record.base_htid %>
+				 	(base record)
+				<% end %>
+				<br/>
+			<% end %>
+		</td>
+	</tr>
+</table>
+<%= render "shared/marc", :record => @cluster.catalog_record.marc %>

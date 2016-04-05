@@ -1,0 +1,17 @@
+<div class="row-fluid">
+        <div class="span3 centering text-center">
+    <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    <div class="span3 centering text-center">
+    <a href="/"><%= image_tag("ellie_small.png", :alt => "Ellie: HathiTrust Item Browser") %></a>
+      <br/>
+      <br/>
+        <%= form_tag('/search', :method => :get) do %>
+          <%= text_field_tag 'id', '', :size => '35' %>
+          <%= submit_tag 'Search' %><br/>
+        <% end %>
+      <span style="font-size: 70%"> HTID (e.g. mdp.39015030724549) or OCLC w/ prefix (e.g. oclc:16857172) or CID (cid:000625521)</span>
+    </div>
+  </div>
+</div>
